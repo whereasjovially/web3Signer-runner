@@ -1,0 +1,31 @@
+services:
+  web3signer:
+    image: consensys/web3signer:develop
+    container_name: web3signer
+    ports:
+      - "9000:9000"
+    command:
+      - --tls-allow-any-client
+      - "true"
+      - --tls-keystore-file
+      - /data/tls/key.p12
+      - --tls-keystore-password-file
+      - /data/tls/password.txt
+      - eth2
+      - --network
+      - mainnet
+      - --keystores-path
+      - /data/keystore/keys
+      - --keystores-passwords-path
+      - /data/keystore/secrets
+      - --slashing-protection-enabled
+      - "false"
+      - --commit-boost-api-enabled
+      - "true"
+      - --proxy-keystores-path
+      - /data/tls/keystore
+      - --proxy-keystores-password-file
+      - /data/tls/password.txt
+    volumes:
+      - /home/web3signer-25.2.0:/data
+    restart: unless-stopped
